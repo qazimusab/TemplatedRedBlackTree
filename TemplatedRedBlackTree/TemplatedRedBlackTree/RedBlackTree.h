@@ -23,35 +23,35 @@ private:
 		}
 	}
 
-	void insertNode(RedBlackNode<T> *root, T date)
+	void insertNode(RedBlackNode<T> *root, T data)
 	{
 		RedBlackNode<T>* insertedNode = NULL;
-		if (root->getValue() == date)
+		if (root->getValue() == data)
 		{
 			//skip
 		}
-		else if (root->getValue() > date)
+		else if (root->getValue() > data)
 		{
 			if (root->getLeft() == NULL)
 			{
-				insertedNode = new RedBlackNode<T>(date);
+				insertedNode = new RedBlackNode<T>(data);
 				root->setLeft(insertedNode);
 			}
 			else
 			{
-				this->insertNode(root->getLeft(), date);
+				this->insertNode(root->getLeft(), data);
 			}
 		}
 		else
 		{
 			if (root->getRight() == NULL)
 			{
-				insertedNode = new RedBlackNode<T>(date);
+				insertedNode = new RedBlackNode<T>(data);
 				root->setRight(insertedNode);
 			}
 			else
 			{
-				this->insertNode(root->getRight(), date);
+				this->insertNode(root->getRight(), data);
 			}
 		}
 		//restore uniform black height
@@ -558,19 +558,19 @@ private:
 			return 1 + right;
 	}
 
-	void search(T date, RedBlackNode <T>* root){
+	void search(T data, RedBlackNode <T>* root){
 		if (root != NULL){
 			nodes++;
-			if (root->getValue() == date){
+			if (root->getValue() == data){
 				searchComplete = true;
 			}
 			else{
 				searchComplete = false;
-				if (date <= root->getValue()){
-					search(date, root->getLeft());
+				if (data <= root->getValue()){
+					search(data, root->getLeft());
 				}
 				else{
-					search(date, root->getRight());
+					search(data, root->getRight());
 				}
 			}
 		}
@@ -624,24 +624,24 @@ public:
 		display(root);
 	}
 
-	void insertNode(T date)
+	void insertNode(T data)
 	{
 		if (this->IsEmpty())
 		{
-			this->root = new RedBlackNode<T>(date);
+			this->root = new RedBlackNode<T>(data);
 			this->root->recolor();
 		}
-		else this->insertNode(this->root, date);
+		else this->insertNode(this->root, data);
 	}
 
-	void search(T date){
+	void search(T data){
 		searchComplete = false;
-		search(date, root);
+		search(data, root);
 		if (searchComplete == true){
-			cout << "\"" << date << "\"" << " was found after examining " << nodes << " nodes." << endl;
+			cout << "\"" << data << "\"" << " was found after examining " << nodes << " nodes." << endl;
 		}
 		else{
-			cout << "\"" << date << "\"" << " was not found. Searched " << nodes << " nodes." << endl;
+			cout << "\"" << data << "\"" << " was not found. Searched " << nodes << " nodes." << endl;
 		}
 	}
 };

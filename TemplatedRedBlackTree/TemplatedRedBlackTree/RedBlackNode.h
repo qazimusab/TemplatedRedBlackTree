@@ -2,7 +2,7 @@ template <class T> class RedBlackNode
 {
 private:
 	bool isNodeRed;
-	T date;
+	T data;
 	RedBlackNode<T> *left, *right, *parent;
 public:
 	//Node()
@@ -10,10 +10,10 @@ public:
 	//	left = NULL;
 	//	right = NULL;
 	//}
-	RedBlackNode(T date)
+	RedBlackNode(T data)
 	{
 		this->isNodeRed = true;
-		this->date = date;
+		this->data = data;
 		left = NULL;
 		right = NULL;
 		parent = NULL;
@@ -31,7 +31,7 @@ public:
 	}
 	T getValue()
 	{
-		return this->date;
+		return this->data;
 	}
 	RedBlackNode* getLeft()
 	{

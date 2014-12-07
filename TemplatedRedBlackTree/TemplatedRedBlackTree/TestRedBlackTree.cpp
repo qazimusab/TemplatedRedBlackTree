@@ -1,11 +1,4 @@
-/* TreeTestZone.cpp :
-this short code can be used to perform various testing and console visualization of the structure
-as well as comparisons with binary search tree
-*/
-
-#include <time.h>
 #include <iostream>
-#include <queue>
 #include "RedBlackTree.h"
 #include <string>
 #include <fstream>
@@ -22,7 +15,12 @@ int main()
 	try{
 		readFile();
 		cout << *tree << endl;
-		tree->search("jsd");
+		string search;
+		while (search != "exit"){
+			cout << "Search for something" << endl;
+			cin >> search;
+			tree->search(search);
+		}
 	}
 	catch (exception& e){
 		e.what();
