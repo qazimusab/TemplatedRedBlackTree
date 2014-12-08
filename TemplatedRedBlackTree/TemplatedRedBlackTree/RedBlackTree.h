@@ -75,13 +75,13 @@ private:
 			if (root->getParent()->getRight() == NULL || !root->getParent()->getRight()->isRed()) this->rightRotate(root);
 			else
 			{
-				root->recolor();
-				root->getParent()->getRight()->recolor();
-				root->getParent()->recolor();
+				root->changeColor();
+				root->getParent()->getRight()->changeColor();
+				root->getParent()->changeColor();
 				//case real root is reached
 				if (root->getParent()->getParent() == NULL)
 				{
-					root->getParent()->recolor();
+					root->getParent()->changeColor();
 					return;
 				}
 				//root is now black so check one level up
@@ -94,13 +94,13 @@ private:
 			if (root->getParent()->getLeft() == NULL || !root->getParent()->getLeft()->isRed()) this->leftRotate(root);
 			else
 			{
-				root->recolor();
-				root->getParent()->getLeft()->recolor();
-				root->getParent()->recolor();
+				root->changeColor();
+				root->getParent()->getLeft()->changeColor();
+				root->getParent()->changeColor();
 				//case real root is reached
 				if (root->getParent()->getParent() == NULL)
 				{
-					root->getParent()->recolor();
+					root->getParent()->changeColor();
 					return;
 				}
 				//root is now black so check one level up
@@ -120,8 +120,8 @@ private:
 			parent->setRight(badChild);
 			root = badChild;
 		}
-		root->recolor();
-		parent->recolor();
+		root->changeColor();
+		parent->changeColor();
 		//parent's right -> root's left
 		parent->setRight(root->getLeft());
 		//root -> parent
@@ -153,8 +153,8 @@ private:
 			parent->setLeft(badChild);
 			root = badChild;
 		}
-		root->recolor();
-		parent->recolor();
+		root->changeColor();
+		parent->changeColor();
 		//parent's left -> root's right
 		parent->setLeft(root->getRight());
 		//root -> parent
@@ -194,8 +194,8 @@ private:
 				else
 				{
 					//case 1.2L
-					parent->getRight()->recolor();
-					parent->recolor();
+					parent->getRight()->changeColor();
+					parent->changeColor();
 				}
 			}
 			else
@@ -227,7 +227,7 @@ private:
 					else
 					{
 						//case 2.2.2L
-						parent->getRight()->recolor();
+						parent->getRight()->changeColor();
 						if (parent->getParent() != NULL) restoreReducedHeight(parent);
 						//otherwise overall black height reduced by 1
 					}
@@ -248,8 +248,8 @@ private:
 				else
 				{
 					//case 1.2R
-					parent->getLeft()->recolor();
-					parent->recolor();
+					parent->getLeft()->changeColor();
+					parent->changeColor();
 				}
 			}
 			else
@@ -281,7 +281,7 @@ private:
 					else
 					{
 						//case 2.2.2R
-						parent->getLeft()->recolor();
+						parent->getLeft()->changeColor();
 						if (parent->getParent() != NULL) restoreReducedHeight(parent);
 						//otherwise overall black height reduced by 1
 					}
@@ -300,13 +300,13 @@ private:
 			badChild->setRight(root);
 			parent->setRight(badChild);
 			root = badChild;
-			parent->recolor();
+			parent->changeColor();
 		}
 		else
 		{
-			root->getRight()->recolor();
-			root->recolor();
-			parent->recolor();
+			root->getRight()->changeColor();
+			root->changeColor();
+			parent->changeColor();
 		}
 		parent->setRight(root->getLeft());
 		if (parent->getParent() != NULL)
@@ -335,13 +335,13 @@ private:
 			root->getLeft()->setLeft(badChild->getRight());
 			badChild->setRight(root->getLeft());
 			root->setLeft(badChild);
-			badChild->getRight()->recolor();
-			badChild->recolor();
+			badChild->getRight()->changeColor();
+			badChild->changeColor();
 		}
 		parent->setRight(root->getLeft()->getLeft());
 		root->getLeft()->setLeft(parent);
 		root->setLeft(root->getLeft()->getRight());
-		root->getLeft()->recolor();
+		root->getLeft()->changeColor();
 		parent->getParent()->setRight(root);
 		if (grandParent != NULL)
 		{
@@ -359,9 +359,9 @@ private:
 	void thirdLRotate(RedBlackNode<T> *root)
 	{
 		RedBlackNode<T>* parent = root->getParent();
-		root->getLeft()->recolor();
+		root->getLeft()->changeColor();
 		parent->setRight(root->getLeft());
-		root->recolor();
+		root->changeColor();
 		if (parent->getParent() != NULL)
 		{
 			//bind root to rest of the tree
@@ -387,11 +387,11 @@ private:
 			badChild->setRight(root);
 			parent->setRight(badChild);
 			root = badChild;
-			root->recolor();
+			root->changeColor();
 		}
 		else
 		{
-			root->getRight()->recolor();
+			root->getRight()->changeColor();
 		}
 		parent->setRight(root->getLeft());
 		if (parent->getParent() != NULL)
@@ -420,13 +420,13 @@ private:
 			badChild->setLeft(root);
 			parent->setLeft(badChild);
 			root = badChild;
-			parent->recolor();
+			parent->changeColor();
 		}
 		else
 		{
-			root->getLeft()->recolor();
-			root->recolor();
-			parent->recolor();
+			root->getLeft()->changeColor();
+			root->changeColor();
+			parent->changeColor();
 		}
 		parent->setLeft(root->getRight());
 		if (parent->getParent() != NULL)
@@ -455,13 +455,13 @@ private:
 			root->getRight()->setRight(badChild->getLeft());
 			badChild->setLeft(root->getRight());
 			root->setRight(badChild);
-			badChild->getLeft()->recolor();
-			badChild->recolor();
+			badChild->getLeft()->changeColor();
+			badChild->changeColor();
 		}
 		parent->setLeft(root->getRight()->getRight());
 		root->getRight()->setRight(parent);
 		root->setRight(root->getRight()->getLeft());
-		root->getRight()->recolor();
+		root->getRight()->changeColor();
 		parent->getParent()->setLeft(root);
 		if (grandParent != NULL)
 		{
@@ -479,9 +479,9 @@ private:
 	void thirdRRotate(RedBlackNode<T> *root)
 	{
 		RedBlackNode<T>* parent = root->getParent();
-		root->getRight()->recolor();
+		root->getRight()->changeColor();
 		parent->setLeft(root->getRight());
-		root->recolor();
+		root->changeColor();
 		if (parent->getParent() != NULL)
 		{
 			//bind root to rest of the tree
@@ -507,11 +507,11 @@ private:
 			badChild->setLeft(root);
 			parent->setLeft(badChild);
 			root = badChild;
-			root->recolor();
+			root->changeColor();
 		}
 		else
 		{
-			root->getLeft()->recolor();
+			root->getLeft()->changeColor();
 		}
 		parent->setLeft(root->getRight());
 		if (parent->getParent() != NULL)
@@ -630,7 +630,7 @@ public:
 		if (this->IsEmpty())
 		{
 			this->root = new RedBlackNode<T>(data);
-			this->root->recolor();
+			this->root->changeColor();
 		}
 		else this->insert(this->root, data);
 	}

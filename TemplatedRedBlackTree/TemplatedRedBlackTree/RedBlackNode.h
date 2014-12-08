@@ -1,4 +1,5 @@
-template <class T> class RedBlackNode
+template <class T> 
+class RedBlackNode
 {
 private:
 	bool isNodeRed;
@@ -15,7 +16,7 @@ public:
 		right = NULL;
 		parent = NULL;
 	}
-	void recolor()
+	void changeColor()
 	{
 		isNodeRed = !isNodeRed;
 	}
@@ -46,12 +47,16 @@ public:
 	void setLeft(RedBlackNode* left)
 	{
 		this->left = left;
-		if (left != NULL) left->parent = this;
+		if (left != NULL) {
+			left->parent = this;
+		}
 	}
 	void setRight(RedBlackNode* right)
 	{
 		this->right = right;
-		if (right != NULL) right->parent = this;
+		if (right != NULL) {
+			right->parent = this;
+		}
 	}
 };
 
