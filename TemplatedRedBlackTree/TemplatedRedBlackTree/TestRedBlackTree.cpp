@@ -16,9 +16,13 @@ int main()
 		readFile();
 		cout << *tree << endl;
 		string search;
-		while (search != "exit"){
-			cout << "Search for something" << endl;
+		while (true){
+			cout << "Search for something or .exit to terminate" << endl;
 			cin >> search;
+			if (search == ".exit"){
+				cout << "You have terminated the program." << endl;
+				break;
+			}
 			tree->search(search);
 		}
 	}
@@ -43,7 +47,7 @@ void readFile(){
 					i--;
 				}
 			}
-			tree->insertNode(word);
+			tree->insert(word);
 		}
 	}
 }

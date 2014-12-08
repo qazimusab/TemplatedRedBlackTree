@@ -3,13 +3,10 @@ template <class T> class RedBlackNode
 private:
 	bool isNodeRed;
 	T data;
-	RedBlackNode<T> *left, *right, *parent;
+	RedBlackNode<T> *left;
+	RedBlackNode<T> *right;
+	RedBlackNode<T> *parent;
 public:
-	//Node()
-	//{
-	//	left = NULL;
-	//	right = NULL;
-	//}
 	RedBlackNode(T data)
 	{
 		this->isNodeRed = true;
@@ -20,10 +17,7 @@ public:
 	}
 	void recolor()
 	{
-		if (this->isNodeRed)
-			this->isNodeRed = false;
-		else
-			this->isNodeRed = true;
+		isNodeRed = !isNodeRed;
 	}
 	bool isRed()
 	{

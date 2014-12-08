@@ -1,6 +1,7 @@
 #include "RedBlackNode.h"
 #include <iostream>
 #include <string>
+#include <list>
 
 using namespace std;
 
@@ -23,7 +24,7 @@ private:
 		}
 	}
 
-	void insertNode(RedBlackNode<T> *root, T data)
+	void insert(RedBlackNode<T> *root, T data)
 	{
 		RedBlackNode<T>* insertedNode = NULL;
 		if (root->getValue() == data)
@@ -39,7 +40,7 @@ private:
 			}
 			else
 			{
-				this->insertNode(root->getLeft(), data);
+				this->insert(root->getLeft(), data);
 			}
 		}
 		else
@@ -51,7 +52,7 @@ private:
 			}
 			else
 			{
-				this->insertNode(root->getRight(), data);
+				this->insert(root->getRight(), data);
 			}
 		}
 		//restore uniform black height
@@ -188,7 +189,7 @@ private:
 					|| (parent->getRight()->getRight() != NULL && parent->getRight()->getRight()->isRed()))
 				{
 					//case 1.1L
-					FirstLRotate(parent->getRight());
+					firstLRotate(parent->getRight());
 				}
 				else
 				{
@@ -206,12 +207,12 @@ private:
 						|| (parent->getRight()->getLeft()->getLeft() != NULL && parent->getRight()->getLeft()->getLeft()->isRed()))
 					{
 						//case 2.1.1L
-						SecondLRotate(parent->getRight());
+						secondLRotate(parent->getRight());
 					}
 					else
 					{
 						//case 2.1.2L
-						ThirdLRotate(parent->getRight());
+						thirdLRotate(parent->getRight());
 					}
 				}
 				else
@@ -221,7 +222,7 @@ private:
 						|| (parent->getRight()->getRight() != NULL && parent->getRight()->getRight()->isRed()))
 					{
 						//case 2.2.1L
-						ForthLRotate(parent->getRight());
+						forthLRotate(parent->getRight());
 					}
 					else
 					{
@@ -242,7 +243,7 @@ private:
 					|| (parent->getLeft()->getRight() != NULL && parent->getLeft()->getRight()->isRed()))
 				{
 					//case 1.1R
-					FirstRRotate(parent->getLeft());
+					firstRRotate(parent->getLeft());
 				}
 				else
 				{
@@ -260,12 +261,12 @@ private:
 						|| (parent->getLeft()->getRight()->getLeft() != NULL && parent->getLeft()->getRight()->getLeft()->isRed()))
 					{
 						//case 2.1.1R
-						SecondRRotate(parent->getLeft());
+						secondRRotate(parent->getLeft());
 					}
 					else
 					{
 						//case 2.1.2R
-						ThirdRRotate(parent->getLeft());
+						thirdRRotate(parent->getLeft());
 					}
 				}
 				else
@@ -275,7 +276,7 @@ private:
 						|| (parent->getLeft()->getRight() != NULL && parent->getLeft()->getRight()->isRed()))
 					{
 						//case 2.2.1R
-						ForthRRotate(parent->getLeft());
+						forthRRotate(parent->getLeft());
 					}
 					else
 					{
@@ -288,7 +289,7 @@ private:
 			}
 		}
 	}
-	void FirstLRotate(RedBlackNode<T> *root)
+	void firstLRotate(RedBlackNode<T> *root)
 	{
 		RedBlackNode<T> *parent = root->getParent();
 		//avl similar case 2 for left rotation - double rotation
@@ -323,7 +324,7 @@ private:
 		}
 		root->setLeft(parent);
 	}
-	void SecondLRotate(RedBlackNode<T> *root)
+	void secondLRotate(RedBlackNode<T> *root)
 	{
 		RedBlackNode<T>* parent = root->getParent();
 		RedBlackNode<T>* grandParent = parent->getParent();
@@ -355,7 +356,7 @@ private:
 			this->root->clearParent();
 		}
 	}
-	void ThirdLRotate(RedBlackNode<T> *root)
+	void thirdLRotate(RedBlackNode<T> *root)
 	{
 		RedBlackNode<T>* parent = root->getParent();
 		root->getLeft()->recolor();
@@ -375,7 +376,7 @@ private:
 		}
 		root->setLeft(parent);
 	}
-	void ForthLRotate(RedBlackNode<T> *root)
+	void forthLRotate(RedBlackNode<T> *root)
 	{
 		RedBlackNode<T> *parent = root->getParent();
 		//avl similar case 2 for left rotation - double rotation
@@ -408,7 +409,7 @@ private:
 		}
 		root->setLeft(parent);
 	}
-	void FirstRRotate(RedBlackNode<T> *root)
+	void firstRRotate(RedBlackNode<T> *root)
 	{
 		RedBlackNode<T> *parent = root->getParent();
 		//avl similar case 2 for left rotation - double rotation
@@ -443,7 +444,7 @@ private:
 		}
 		root->setRight(parent);
 	}
-	void SecondRRotate(RedBlackNode<T> *root)
+	void secondRRotate(RedBlackNode<T> *root)
 	{
 		RedBlackNode<T>* parent = root->getParent();
 		RedBlackNode<T>* grandParent = parent->getParent();
@@ -475,7 +476,7 @@ private:
 			this->root->clearParent();
 		}
 	}
-	void ThirdRRotate(RedBlackNode<T> *root)
+	void thirdRRotate(RedBlackNode<T> *root)
 	{
 		RedBlackNode<T>* parent = root->getParent();
 		root->getRight()->recolor();
@@ -495,7 +496,7 @@ private:
 		}
 		root->setRight(parent);
 	}
-	void ForthRRotate(RedBlackNode<T> *root)
+	void forthRRotate(RedBlackNode<T> *root)
 	{
 		RedBlackNode<T> *parent = root->getParent();
 		//avl similar case 2 for left rotation - double rotation
@@ -624,14 +625,14 @@ public:
 		display(root);
 	}
 
-	void insertNode(T data)
+	void insert(T data)
 	{
 		if (this->IsEmpty())
 		{
 			this->root = new RedBlackNode<T>(data);
 			this->root->recolor();
 		}
-		else this->insertNode(this->root, data);
+		else this->insert(this->root, data);
 	}
 
 	void search(T data){
@@ -643,5 +644,6 @@ public:
 		else{
 			cout << "\"" << data << "\"" << " was not found. Searched " << nodes << " nodes." << endl;
 		}
+		nodes = 0;
 	}
 };
